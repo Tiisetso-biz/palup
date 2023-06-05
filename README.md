@@ -45,7 +45,7 @@ Palup is a social media web application that can be used to socialise. It is int
 
 ```bash
   cd client
-  npm install
+  npm install -force
   npm start
 
   cd  ..
