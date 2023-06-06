@@ -56,8 +56,11 @@ Palup is a social media web application that can be used to socialise. It is int
 
 ## To test the app:
 ```bash
-  cd frontend
-  npm test
+  cd client
+  npm run test
+
+  cd server
+  npm run test
 ```
 
 ## How to use the app:
