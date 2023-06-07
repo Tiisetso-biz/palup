@@ -34,3 +34,10 @@ export const deletePost = (id) => API.delete(`/posts/${id}`);
 
 export const signIn = (formData) => API.post("/user/signin", formData);
 export const signUp = (formData) => API.post("/user/signup", formData);
+export const adminSignUp = (formData) => API.post("/user/admin/signup", formData);
+
+export const getAllUsers = () => API.get("/user/users");
+export const suspendUser = (userId) =>
+  API.patch(`/user/users/${userId}/suspend`);
+export const unsuspendUser = (userId) =>
+  API.patch(`/user/users/${userId}/unsuspend`);

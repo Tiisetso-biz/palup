@@ -64,7 +64,11 @@ Palup is a social media web application that can be used to socialise. It is int
 ```
 
 ## How to use the app:
-Register and log into the app. From there, one make posts and add other users as friends, see their profile, etc. NB: Database has been fed some dummy data for demonstration purposes.
+Register and log into the app. From there, one can make posts, like, comment etc. NB: Database has been fed some dummy data for demonstration purposes.
+
+**Admin Login Details** <br>
+Email: mark.admin@palup.co.za <br>
+Password: mark.admin
 
 ## To modify MongoDB URI:
  Update your environment variables and set the necessary database URI.

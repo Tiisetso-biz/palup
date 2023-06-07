@@ -11,6 +11,8 @@ import {
   COMMENT,
 } from "../constants/actionTypes";
 import * as api from "../api";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //action creators
 export const getPost = (id) => async (dispatch) => {
@@ -66,6 +68,7 @@ export const createPost = (post, history) => async (dispatch) => {
 
     dispatch({ type: CREATE, payload: data });
     dispatch({ type: END_LOADING });
+    toast.success("Posted")
   } catch (error) {
     console.log(error);
   }

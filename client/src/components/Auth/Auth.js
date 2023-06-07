@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Paper,
@@ -6,9 +6,11 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Input from "./Input";
 import { signin, signup } from "../../actions/auth";
 import "../../App.css";
@@ -36,19 +38,31 @@ const Auth = () => {
   const dispatch = useDispatch();
   const handleShowPassword = () => setShowPassword(!showPassword);
   const history = useHistory();
+  const auth = useSelector((state) => state.auth);
+
+  const showToast = (message, type) => {
+    toast(message, { type: type });
+  };
+
 
   /**The handleSubmit function is called when the form is submitted. 
    * It prevents the default form submission behavior, and based on the value of isSignUp, 
    * it dispatches either a signup or signin action with the form data and the navigation history. */
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (isSignUp) {
-      dispatch(signup(formData, history));
+      dispatch(signup(formData, history, showToast));
     } else {
-      dispatch(signin(formData, history));
+      const result = await dispatch(signin(formData, history));
+      if (result === "Invalid Credentials") {
+        showToast("Invalid email or password.", "error");
+      } else if (result === "suspended") {
+        showToast("Your account has been suspended.", "error");
+      }
     }
   };
+  
 
   /**The handleChange function is called when any input field value changes. 
    * It updates the formData state by spreading the existing state and updating the specific field that matches the input's name attribute.
@@ -66,6 +80,8 @@ const Auth = () => {
 
   return (
     <Container component="main" maxWidth="xs">
+            <ToastContainer /> 
+
       <Paper className={classes.paper} elevation={3}>
         <Typography variant="h4">{isSignUp ? "Registration Form" : "Welcome to Palup!"}</Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
